@@ -1,0 +1,590 @@
+
+
+
+
+
+
+_J_o_h_n _M_o_u_n_t      _k_n_o_t_E_d _w_r_i_t_e_u_p:
+
+
+
+
+
+
+     My project for the past semester (computer science  282
+class  project for Professor Fateman and a math 199 indepen-
+dent research/reading project under the direction of Profes-
+sor  Goldschmidt)  has  been  a program that I call "knotEd"
+which is a knot editor.  A "knot"  is  a  polygonal  arc  in
+space that crosses over and under itself.  This program is a
+X application designed to aid a topologist researching  knot
+theory by allowing the easy entry and alteration of topolog-
+ical knots and some automated calculations from them.
+
+
+     The easiest way to discuss knots is,  of  course,  with
+the  aid  of  diagrams.   And  (hopefully)  a good source of
+diagrams is knotEd itself, so we will first  concentrate  on
+the operation of the program.
+
+
+     knotEd's source can be found in  the main directory, the 
+Makefile describes what files go together and a (VERY)  small 
+number  of  predrawn  knots in in the directory /klib. knotEd 
+takes the following command line arguments:
+
+_k_n_o_t_E_d [-_p#] [-_c#] [-_l#] [_k_n_o_t_n_a_m_e]
+
+The "-p#" option sets the number of points allowed  (default
+=  1000).   Note  the  all of the numeric arguments must NOT
+have a space separating them from  their  flag.   The  "-c#"
+argument  sets  the  number  of crossings allowed (default =
+1000).   The  "-l#"  argument  sets  the  number  of   links
+(separate   pieces  of  string)  allowed  (default  =  200).
+Finally the "knotname" argument is the name  of  a  file  to
+load  on  entry (typed without the ".knot" suffix and knotEd
+does not recognize the "~"  operator  in  file  paths).   In
+addition  to  the  command line arguments knotEd reads three
+(optional) entries from the user's ".Xdefaults"  file.   The
+options would look like this:
+
+_k_n_o_t_E_d._W_i_d_t_h:                   _5_0_0
+
+_k_n_o_t_E_d._H_e_i_g_h_t:                  _5_0_0
+
+_k_n_o_t_E_d._F_o_n_t:                    _s_c_r_e_e_n._b._1_4
+
+
+
+
+                     December 16, 1988
+
+
+
+
+
+                           - 2 -
+
+
+These options set the width and height of the graphics  win-
+dow  and also select the font.  The user may resize the win-
+dows during run time and the knot editor will adjust.
+
+
+     Once in knotEd the user is presented with two  windows:
+the  command  window  and  the graphics window.  The command
+menu is explained (briefly, your best bet is  to  learn  the
+commands  by  trying  them)  as  follows:   the character in
+parenthesis is the shorthand for the  command  following  it
+(the  advanced user can type this letter in the graph window
+to execute a command without using the mouse to  select  the
+command, though if the command requires additional text this
+text MUST be typed in the command window).  All of the lower
+case  commands have no effect on the users knot (they affect
+only how it is displayed)  while  the  upper  case  commands
+change  the  knot (but can be undone with the undo command).
+Because the lower case commands do not change the  knot  the
+user  can to an upper case command followed by any number of
+lower case commands and still undo the upper  case  command.
+The menu is as follows:
+
+(_q) _Q_U_I_T
+
+     _L_e_a_v_e_s _t_h_e _e_d_i_t_o_r (_a _y_e_s/_n_o _a_r_e _y_o_u _s_u_r_e  _p_r_o_m_p_t  _h_e_l_p_s
+     _p_r_e_v_e_n_t _a_c_c_i_d_e_n_t_s).
+
+(_c) _C_L_E_A_R _K_N_O_T
+
+     _R_e_s_e_t_s _t_o _n_o_t_h_i_n_g _d_r_a_w_n.
+
+(_r) _R_E_A_D _K_N_O_T
+
+     _R_e_a_d _a _f_i_l_e _w_i_t_h "._k_n_o_t" _e_x_t_e_n_s_i_o_n (_e_x_t_e_n_s_i_o_n _n_o_t _t_y_p_e_d
+     _i_n _b_y _u_s_e_r) _t_o _r_e_s_t_o_r_e _a _p_r_e_v_i_o_u_s_l_y _s_a_v_e_d _k_n_o_t.
+
+(_s) _s_a_v_e _k_n_o_t
+
+     _S_a_v_e _a _k_n_o_t _f_o_r _R_E_A_D _K_N_O_T (_e_x_t_e_n_s_i_o_n _n_o_t _t_y_p_e_d).
+
+([) _w_r_i_t_e _k_n_o_t _s_t_r_i_n_g
+
+     _W_r_i_t_e _a _t_o_p_o_l_o_g_i_c_a_l _s_t_r_i_n_g _r_e_p_r_e_s_e_n_t_i_n_g _t_h_e _k_n_o_t  (_u_s_e_d
+     _b_y _o_t_h_e_r _p_r_o_g_r_a_m_s, _m_o_r_e _o_n _t_h_i_s _l_a_t_e_r).
+
+(_o) _w_r_i_t_e _b_r_a_i_d _w_o_r_d
+
+     _W_r_i_t_e _a _b_r_a_i_d _w_o_r_d _r_e_p_r_e_s_e_n_t_i_n_g _t_h_e _k_n_o_t (_u_s_e_d _b_y _o_t_h_e_r
+     _p_r_o_g_r_a_m_s, _m_o_r_e _o_n _t_h_i_s _l_a_t_e_r).
+
+(_e) _R_E_A_D _B_R_A_I_D _W_O_R_D
+
+     _R_e_a_d _a _b_r_a_i_d _w_o_r_d _a_n_d _d_r_a_w _t_h_e _b_r_a_i_d.
+
+
+
+
+                     December 16, 1988
+
+
+
+
+
+                           - 3 -
+
+
+(_t) _t_e_k _p_l_o_t _k_n_o_t
+
+     _P_l_o_t _t_h_e _k_n_o_t _i_n_t_o _a _f_i_l_e _i_n _T_e_k_t_r_o_n_i_c_s _f_o_r_m_a_t (_a_d_d_s  _a
+     "._t_e_k" _e_x_t_e_n_s_i_o_n).
+
+(_k) _a_d_j_u_s_t _t_e_k _s_c_a_l_e
+
+     _A_d_j_u_s_t _t_h_e _r_e_s_c_a_l_i_n_g _o_f _t_h_e _k_n_o_t _f_r_o _t_e_k _p_l_o_t _k_n_o_t.
+
+(_j) _a_d_j_u_s_t _c_u_r_v_e _d_r_a_w
+
+     _S_e_t _h_o_w _m_a_n_y _l_i_n_e _s_e_g_m_e_n_t_s _a_r_e _u_s_e_d _t_o _d_r_a_w _e_a_c_h  _c_u_r_v_e
+     _w_h_e_n _t_h_e _s_p_l_i_n_e_r _i_s _t_u_r_n_e_d _o_n.
+
+(_g) _g_h_o_s_t _l_i_n_e
+
+     _T_o_g_g_l_e _i_f _t_h_e _a_c_t_u_a_l _p_o_l_y_g_o_n_a_l _a_r_c _i_s _t_o _b_e _d_r_a_w_n  _d_o_t_-
+     _t_e_d _w_i_t_h _t_h_e _s_p_l_i_n_e_r _i_s _t_u_r_n_e_d _o_n (_v_e_r_y _u_s_e_f_u_l).
+
+(_p) _a_d_j_u_s_t _s_p_l_i_n_e
+
+     _C_h_a_n_g_e _t_h_e _s_p_l_i_n_e _p_a_r_a_m_e_t_e_r _0._5 _t_o _1 _a_d_j_u_s_t_s _t_h_e  _s_t_a_n_-
+     _d_a_r_d  _s_p_l_i_n_e_r.   _A  _v_a_l_u_e  _o_f  _z_e_r_o  _b_r_i_n_g_s _i_n _a _s_e_c_o_n_d
+     _s_p_l_i_n_e_r _t_h_a_t _s_o_m_e_t_i_m_e_s _r_u_n_s  _a_w_a_y  _b_u_t  _r_e_a_c_t_s  _t_o  _t_h_e
+     _i_n_s_e_r_t_i_o_n  _o_f _c_o_n_t_r_o_l _p_o_i_n_t_s _m_u_c_h _b_e_t_t_e_r _t_h_a_n _t_h_e _f_i_r_s_t
+     (_a_n_d _i_n_s_e_r_t_i_n_g _e_x_t_r_a _p_o_i_n_t_s _w_h_e_r_e _t_h_e _s_p_l_i_n_e_r _r_u_n_s _a_w_a_y
+     _f_i_x_e_s _i_t).
+
+(_b) _s_p_l_i_n_e
+
+     _T_u_r_n _t_h_e _s_p_l_i_n_e_r _o_n _o_r _o_f_f.
+
+(_v) _v_e_r_t_e_x _d_r_a_w_i_n_g
+
+     _S_h_o_w _w_h_e_r_e _t_h_e _c_o_n_t_r_o_l _v_e_r_t_i_c_e_s _a_c_t_u_a_l_l_y _a_r_e.
+
+(_y) _a_d_j_u_s_t _a_r_r_o_w _d_e_n_s_i_t_y
+
+     _C_h_a_n_g_e _h_o_w _m_a_n_y _a_r_c_s _a_r_e _d_r_a_w_n _i_n  _b_e_t_w_e_e_n  _e_a_c_h  _a_r_r_o_w
+     _h_e_a_d.
+
+(_a) _a_r_r_o_w _d_r_a_w_i_n_g
+
+     _T_u_r_n _a_r_r_o_w _d_r_a_w_i_n_g _o_n _a_n_d _o_f_f.
+
+(_h) _R_E_V_E_R_S_E _K_N_O_T
+
+     _R_e_v_e_r_s_e _a_l_l _o_f _t_h_e _a_r_r_o_w_s _o_n _a  _s_e_l_e_c_t_e_d  _c_o_m_p_o_n_e_n_t  _o_f
+     _t_h_e _k_n_o_t.
+
+(_1) _A_D_D _K_N_O_T+
+
+     _A_d_d _a _k_n_o_t _w_i_t_h _a +_1 _l_a_b_e_l.
+
+
+
+
+                     December 16, 1988
+
+
+
+
+
+                           - 4 -
+
+
+(_2) _A_D_D _K_N_O_T-
+
+     _A_d_d _a _k_n_o_t _w_i_t_h _a -_1 _l_a_b_e_l.
+
+(_d) _D_E_L_E_T_E _K_N_O_T
+
+     _D_e_l_e_t_e _a _k_n_o_t.
+
+(,) _M_O_V_E _K_N_O_T
+
+     _M_o_v_e _a _k_n_o_t.
+
+(_m) _m_o_v_e _a_l_l
+
+     _M_o_v_e _e_v_e_r_y_t_h_i_n_g.
+
+(_x) _Z_O_O_M _I_N
+
+     _S_e_l_e_c_t _a _r_e_g_i_o_n _t_o _z_o_o_m _i_n _o_n.
+
+(_z) _Z_O_O_M _O_U_T
+
+     _Z_o_o_m _o_u_t.
+
+(_n) _N_O_R_M_A_L _V_I_E_W
+
+     _Z_o_o_m _s_o _t_h_a_t _e_v_e_r_y_t_h_i_n_g _i_s _o_n _t_h_e _s_c_r_e_e_n.
+
+(_i) _k_n_o_t _l_a_b_e_l_i_n_g
+
+     _D_i_s_p_l_a_y _k_n_o_t _l_a_b_e_l_s.
+
+(-) _s_i_g_n _d_i_s_p_l_a_y
+
+     _D_i_s_p_l_a_y _c_r_o_s_s_i_n_g _s_i_g_n_s.
+
+(_f) _c_r_o_s_s _t_a_g_g_i_n_g
+
+     _D_i_s_p_l_a_y _c_r_o_s_s _n_u_m_b_e_r_i_n_g _i_m_m_e_d_i_a_t_e_l_y _a_f_t_e_r _a _w_r_i_t_e  _k_n_o_t
+     _s_t_r_i_n_g.
+
+(_w) _a_d_j_u_s_t _c_r_o_s_s _w_i_d_t_h
+
+     _C_h_a_n_g_e _t_h_e _w_i_d_t_h _t_h_e _u_n_d_e_r_c_r_o_s_s_i_n_g _g_a_p _i_s _d_r_a_w_n _w_i_t_h.
+
+(_l) _i_s_o_t_o_p_y _l_o_c_k
+
+     _T_o_g_g_l_e _t_h_e _i_s_o_t_o_p_y _l_o_c_k.
+
+(;) "_A" _C_H_A_N_N_E_L _C_U_T
+
+     _C_u_t _a _c_r_o_s_s_i_n_g _i_n  _t_h_e  _n_a_t_u_r_a_l  (_d_i_r_e_c_t_i_o_n  _p_r_e_s_e_r_v_i_n_g
+     _m_a_n_n_e_r).
+
+
+
+
+                     December 16, 1988
+
+
+
+
+
+                           - 5 -
+
+
+(=) _P_U_S_H _O_F_F
+
+     _C_r_e_a_t_e _a _d_u_p_l_i_c_a_t_e _o_f _a _s_e_l_e_c_t_e_d _k_n_o_t  _p_u_s_h_e_d  _o_f_f  _t_h_e
+     _c_o_m_p_o_n_e_n_t _s_l_i_g_h_t_l_y.
+
+(_u) _U_N_D_O
+
+     _U_n_d_o _t_h_e _l_a_s_t _a_l_l _c_a_p_s _o_p_e_r_a_t_i_o_n.
+
+(.) _r_e_f_r_e_s_h
+
+     _R_e_d_r_a_w _b_o_t_h _w_i_n_d_o_w_s.
+
+
+     The mouse buttons have the following  function  in  the
+graphics window:
+
+_P_u_l_l _K_n_o_t (_r_i_g_h_t _b_u_t_t_o_n):
+
+     _S_e_l_e_c_t _a _c_o_n_t_r_o_l _p_o_i_n_t _w_i_t_h _f_i_r_s_t _c_l_i_c_k _a_n_d _m_o_v_e _i_t  _t_o
+     _m_o_u_s_e _p_o_s_i_t_i_o_n _o_n _t_h_e _s_e_c_o_n_d _c_l_i_c_k.
+
+_R_i_p _K_n_o_t (_m_i_d_d_l_e _b_u_t_t_o_n):
+
+     _S_e_l_e_c_t _t_w_o _c_o_n_t_r_o_l _p_o_i_n_t_s _a_n_d  _d_e_l_e_t_e  _t_h_e  _s_e_c_t_i_o_n  _o_f
+     _s_t_r_i_n_g _b_e_t_w_e_e_n _t_h_e_n.  _T_h_e_n _r_e_p_l_a_c_e _w_i_t_h _s_t_r_i_n_g _d_r_a_w_n _b_y
+     _c_l_i_c_k_s _u_n_t_i_l _m_o_u_s_e _i_s _c_l_i_c_k_e_d _i_n _t_a_r_g_e_t _r_e_g_i_o_n.   _A_c_t_u_-
+     _a_l_l_y  _i_f  _t_h_e _m_o_u_s_e _i_s _n_o_t _t_o_o _n_e_a_r _a _c_o_n_t_r_o_l _p_o_i_n_t _t_h_e
+     _p_r_o_g_r_a_m _i_n_s_e_r_t_s _a _c_o_n_t_r_o_l _p_o_i_n_t _o_n _t_h_e _n_e_a_r_e_s_t  _s_t_r_i_n_g.
+     _T_h_i_s  _m_a_k_e_s  _t_h_i_s  _c_o_m_m_a_n_d  _m_u_c_h _m_o_r_e _p_o_w_e_r_f_u_l _t_h_e _P_u_l_l
+     _K_n_o_t _b_e_c_a_u_s_e _t_h_e _p_u_l_l _o_p_e_r_a_t_i_o_n _o_f_t_e_n _p_u_l_l_s  _a  _s_e_g_m_e_n_t
+     _w_i_t_h _o_v_e_r _a_n_d _u_n_d_e_r _c_r_o_s_s_i_n_g_s (_t_h_u_s _f_o_r_c_i_n_g _t_h_e _i_s_o_t_o_p_y
+     _l_o_c_k _t_o _r_e_j_e_c_t _s_o_m_e _m_o_v_e_s).
+
+_F_l_i_p _s_t_r_i_n_g (_r_i_g_h_t _b_u_t_t_o_n):
+
+     _F_l_i_p _o_v_e_r _t_h_e _s_t_r_i_n_g _a_t _t_h_e _s_e_l_e_c_t_e_d _c_r_o_s_s_i_n_g.
+
+
+
+     Some features of interest are the: spliner,  PUSH  OFF,
+write  knot  string,  write braid word, READ BRAID WORD, and
+the isotopy lock.
+
+
+     The spliner  is  actually  two  splines.   The  default
+method  of splining is the simple Hermetian spline where the
+x and y coordinates are independently third  degree  polyno-
+mial  that  match  adjacent  segments  in value and in first
+derivative.  The derivative at a point is chosen  to  be  in
+the  direction  of  the line drawn from the point before the
+given point to the point after the given point  (reminiscent
+of  the  intermediate  value theorem for derivatives).  More
+freedom is added into this method  by  the  parameter  which
+
+
+
+                     December 16, 1988
+
+
+
+
+
+                           - 6 -
+
+
+allows  the  spline  to miss the control points (but NOT the
+crossings).  The spline actually goes through the point that
+is  Bparm*point + (1-Bparm)*(previous+next)/2 where Bparm is
+the spline parameter.  The user can  set  the  parameter  to
+zero which switches the splining method so that each segment
+is rotated until it is horizontal then the spline  is  drawn
+with  y  being  a function of x (instead of parameters) with
+the same method of picking  derivatives  etc.   This  method
+make  looping  impossible.   The  only  drawback is that the
+derivative is now calculated using a division so that it cat
+get  arbitrarily  large  (causing nail head like portions of
+the drawing).  But this can be fixed  by  the  insertion  of
+additional control points.
+
+
+     The PUSH OFF is in itself a useless operation,  but  it
+(plus  the  ability to braid found in READ BRAID WORD) prove
+that the Kirby Calculus of three manifolds could  be  imple-
+mented  in  knotEd.   Thus the program has uses in more than
+one field of topology.  I hop to implement  the  Kirby  Cal-
+culus later.
+
+
+     The write knot string writes out a string given by  the
+following algorithm:
+
+1) every crossing gets numbered (arbitrarily)
+
+2) for each piece of string in the picture do:
+
+     3) pick an arbitrary point and follow around  the  knot
+     once
+
+     4) at each crossing write the crossing number with a  +
+     or - sign depending on:
+
+          a) first visit to crossing write + if passing over
+          - if passing under.
+
+          b) second visit to crossing write + if the sign of
+          the crossing is plus, - if it is minus.
+
+
+This string is a standard tool in knot theory and is one  of
+the reasons for running the program.  Many graduate students
+here at U.C. Berkeley have programs that accept either  this
+string  or the braid word (see next paragraph) and calculate
+various things.   William Baxter  calculate  the  Jones  two
+variable polynomial.  Kevin Walker calculates the braid word
+(his code is used in the  program).   Professor  Goldschmidt
+calculates the Alexander polynomials.
+
+
+     The write braid word uses  Kevin  Walker's  braider  to
+
+
+
+                     December 16, 1988
+
+
+
+
+
+                           - 7 -
+
+
+realize a knot as an element in the formal braid group.  The
+braid word is again useful for calculating  many  invariants
+since  calculations  base  on  the braid word instead of the
+knot string often have lower time complexity.
+
+
+     READ BRAID WORD this reads a braid word and draws it on
+the  screen  in  the form a knot (note this knot often has a
+different braid word assigned to it by the program).
+
+
+     The isotopy lock is the core of the knot editor.  Basi-
+cally it allows only changes to the knot that satisfy one of
+three conditions.
+
+     1) Some permutation of the crossing  of  the  new  knot
+     makes is identical to the old knot.
+
+     2) The section of string redrawn has no  crossings,  or
+     only  under  crossings,  or  only  over  crossings (all
+     Reidemeister moves are allowed by this stage, but  only
+     - except for case 3 - one at a time).
+
+     3) The section of string was as in condition  2  except
+     some extra Reidemeister 1 moves are also involved.
+
+
+This allows to user to alter a knot easily AND insures  that
+the  resulting  knot is isotopic to the original.  Therefore
+if the user plots all of the intermediate stages of the knot
+he or she can generate a proof that two knots are isotopic.
+
+
+     The basic plan for building the knot editor was to make
+a  useful  piece of software for the topologist.  This means
+that before fancy features go in (Kirby  Calculus  etc)  the
+platform must be complete enough that the user will actually
+consider using the program to be a convenience (I have met a
+couple  of  grad students here not involved in knotEd who do
+use it and like it).  Also the program must be  robust.   In
+this  direction I have added a lot of features.  The program
+now is very careful to pay attention to  refresh  events  so
+the  user  is  never looking at a blank screen.  Any command
+can be aborted (and also undone).  The  program  provides  a
+wealth  of  visual  clues  as to what is going on (including
+changing cursors, highlighting menu items,  circling  points
+of  interest  etc).  All signals are trapped and on abnormal
+exit the program attempts to save  the  users  knot  in  the
+current  working  directory  (and if this is not possible it
+tries the /tmp directory) and then mails the user  a  letter
+describing  the crash and telling where the rescued knot can
+be found.  An abnormal exit is also logged in a file  in  my
+account (the program is SUID so it can write into my account
+at the right moment, I have taken a lot of trouble  to  make
+
+
+
+                     December 16, 1988
+
+
+
+
+
+                           - 8 -
+
+
+sure knotEd will not compromise the account it is run in).
+
+
+     Some things I would like to see added in knotEd are the
+following:
+
+     1)  Performance enhancement.   The  routine  find_cross
+     checks  edges that are already known not to cross every
+     time it is called.  It could keep  track  of  this  and
+     reduce  the time complexity of the routine.  Many other
+     calculations could be improved.
+
+     2)   Kirby  Calculus  and  other  difficult  operations
+     should  be done by the editor.  This way the user bene-
+     fits in (hopefully) three ways where  he  uses  knotEd:
+     basic  operations  are easy, operations are all checked
+     for legality (isotopy lock) and complex operations  are
+     entirely automatic.
+
+     3)  The ability to merge two  stored  knots  into  one.
+     The  data structures rely heavily on the absolute loca-
+     tion of records  in  an  array  (this  make  find_cross
+     INFINITELY  easier)  so  a  little code would be needed
+     here.
+
+     4)  Machine independent  storage.   Current  method  of
+     storing  knots uses fwrite to write out records this is
+     machine dependent and unreadable  to  both  humans  and
+     other  programs.   Some  simple grammar would be suffi-
+     cient for this task.
+
+     5)  More methods of getting hard copy.  Currently hard-
+     copy comes only through Tektronics format or saving the
+     screen to a file.  The ability to draw  in  PostScript,
+     MetaFont, or some grammar would be nice.
+
+     6)  Smarter redraw.   Currently  we  update  the  whole
+     screen.   The  ability to redraw portions would improve
+     performance and cut down on annoying flicker.
+
+     7)  More knot theory.  Actually have the program try to
+     reduce knots into a simpler form.
+
+     8)  More calculations available.  Calculating  software
+     (ala  Goldschmidt, Walker, and Baxter) make knotEd more
+     useful (and vise versa).
+
+     9)  More knots.  Somebody (I don't have the time at the
+     moment)  should sit down with Rolfsen's knot theory and
+     draw all the  knots  in  the  appendix  into  the  knot
+     library.
+
+     10) knotEd ported to other machines.   This  should  be
+     easy as the program I based knotEd on ported easily.
+
+
+
+                     December 16, 1988
+
+
+
+
+
+                           - 9 -
+
+
+     11) X11 version of knotEd (knotEd is X10).
+
+     12) Some decent documents.
+
+
+
+          A good reference for some of the  theory  involved
+     in the knot editor is Kaufman's article "New invariants
+     in knot theory",  The  American  Mathematical  Monthly,
+     March 1988, p. 195.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     December 16, 1988
+
+

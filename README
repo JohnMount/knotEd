@@ -1,0 +1,54 @@
+
+Knot editor by John Mount
+GNU-licence.
+
+The commands are clicked on the kmenu window or typed as a character in
+the knotEd window.
+
+QUIT - the obvious
+CLEAR KNOT - reset 
+READ KNOT - read a knot from a file
+save knot - save a knot to a file
+write knot string - write the number and signed crossing sequence reperesnting
+                    the knot (knotEd is not smart enough to read these back
+                    int).
+write braid word - write the twist sequece that represents the braided form
+                   of the knot.
+READ BAID WORD - read in a braid word as a knot.
+troffable output - output troff acceptable output.
+adjust hard scale - adjust the scaling factor of hard copy.
+adjust curve draw - change number of line segments per curve.
+adjust line width - change X's line drawing width
+ghost line - display dotted lines where actuall segments are
+adjust spline - select spline constant and strategy
+spline - draw curved lines for knots
+vertex drawing - draw control points
+adjust arrow density - change number of arrows drawing
+arrow drawig - show orientation of links
+REVERSE KNOT - reverse orientation of a link
+ADD KNOT+ - add a knot with a +1 label
+ADD KNOT- - add a knot with a -1 label
+MOVE KNOT - pull a whole link
+MOVE ALLL - move all drawn items
+ZOOM IN - blow up a portion of the display
+ZOOM OUT - retreat the display
+NORMAL VIEW - get the knot centered on the screen
+knot labeling - display not labels
+sign display - display crossing signs
+cross tagging - display cross tags after knot string is written
+adjust cross width - change underdrawing style
+isotopy lock - only allow isotopy preserving moves.
+"A" CHANNEL CUT - cut a crossing
+PUSH OFF - push a copy of a link off
+UNDO - undo last operation
+refresh - redraw screen
+
+Finally in the knotEd window the mouse buttons have the following functions:
+
+Left - Pull Knot - grab and move a cotrol point
+Middle - Rip Knot - delete a section of the drawing and redraw
+Right - Flip string - reverse over/under relation at a crossing.
+
+To run the program compile on Linux running X11 and type "knotEd".
+
+John Mount 
