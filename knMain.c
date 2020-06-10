@@ -742,7 +742,7 @@ int safecat(char *grow, char *data, int len) {
   }
   dlen = strlen(data);
   if(dlen<=0) {
-    return;
+    return 0;
   }
   strncat(grow,data,len);
   len -= dlen;
@@ -835,7 +835,7 @@ char siglist[][32] =
   { "ZERO", "SIGHUP", "SIGINT", "SIGQUIT", "SIGILL", "SIGTRAP", "SIGIOT"
     , "SIGEMT", "SIGFPE", "SIGKILL", "SIGBUS", "SIGSEGV", "SIGSYS", "SIGPIPE"
     , "SIGALRM", "SIGTERM", "SIGURG", "SIGSTOP", "SIGTSTP", "SIGCONT"
-    , "SIGCLD", "SIGTTIN", "SIGTTOU", "SIGIO", "SIGXCPU", "SIGXFSZ"
+    , "SIGCHLD", "SIGTTIN", "SIGTTOU", "SIGIO", "SIGXCPU", "SIGXFSZ"
     , "SIGVTALRM", "SIGPROF", "SIGWINCH", "SIGLOST", "SIGUSR1", "SIGUSR2" };
 
 /* catch a siganl and scream bloody murder */
@@ -856,12 +856,12 @@ int mySoftError(Display *disp,XErrorEvent *myerr)
 {
   char s[stlen];
   XGetErrorText(disp,myerr->error_code,s,stlen);
-  panic(s);
+  panic(s); return -1;
 }
 
 int myHardError(Display *disp)
 {
-  panic("Fatal X error");
+  panic("Fatal X error"); return -1;
 }
 
 
@@ -1055,7 +1055,7 @@ void make_banner()
 
 
 /* initailizers MUST be called in the giver order */
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
   FILE *CUR_IN,*CUR_OUT;
   KeySym keysym;
@@ -1070,7 +1070,7 @@ main(int argc, char *argv[])
   PANICING = 0;
   MEMREADY = 0;
   for(k=1;k<=31;++k)  /* set up signals */
-    if((k!=26)&&(k!=SIGCLD)) 
+    if((k!=26)&&(k!=SIGCHLD)) 
       (void)signal(k,punt_handler);
   userId();  /*  get user's name  and set corret ownership */
   (void)snprintf(version_stamp,strbuflen,"           knotEd version 1.6x by John Mount (c)");

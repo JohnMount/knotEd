@@ -7,7 +7,7 @@ LINTDEP= main.h misc.h struct.h xdriver.h
 
 #Linux flags
 CC=cc
-CFLAGS = -g -O -DPIC -I/usr/X11R6/include/X11
+CFLAGS = -g -O -DPIC -I/usr/X11R6/include
 LIBS = -lm -L/usr/X11R6/lib -lX11
 
 

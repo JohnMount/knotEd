@@ -13,7 +13,7 @@
 #define BADD(a,b) (a > 0 ? a+b : a-b)
 #define ABS(a) (a > 0 ? a : -a)
 #define SIGN(a) (a > 0 ? 1 : -1)
-#define BETWEEN(a,b,c) (a<c && a<=b && b<=c || c<a && (a<=b || b<=c))
+#define BETWEEN(a,b,c) ((a<c && a<=b && b<=c) || (c<a && c<=b && b<=a))
 
 
 /* Sbknot = 'Seifert braided knot', a circular list of Seifert braids */
@@ -513,8 +513,8 @@ Sbknot *aktosbk(Aknot *ak)
     br[ic].word[0] = ak->uopass[ip].sign;
     br[ic].word[1] = 0;
     rlb[ip].braid = br+ic;
-    if (ak->uopass[ip].sign == 1 && ak->uopass[ip].uo == 'o' ||
-	ak->uopass[ip].sign == -1 && ak->uopass[ip].uo == 'u') {
+    if (((ak->uopass[ip].sign == 1) && (ak->uopass[ip].uo == 'o')) ||
+	((ak->uopass[ip].sign == -1) && (ak->uopass[ip].uo == 'u'))) {
       rlb[ip].rl = 'l';
     } else {
       rlb[ip].rl = 'r';
