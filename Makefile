@@ -15,7 +15,7 @@ knotEd: knMain.o knMisc.o knXdriver.o ktob.o
 	$(CC) $(CFLAGS) -o knotEd knMain.o knMisc.o ktob.o knXdriver.o $(LIBS)
 
 clean:
-	rm knotEd *.o
+	rm -f knotEd *.o
 
 ktob.o: ktob.c 
 	$(CC) -c $(CFLAGS) ktob.c

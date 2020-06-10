@@ -184,7 +184,7 @@ XSetForeground(X11_display,theGc,MyWhiteP);
 /* draw line n of the menu in color r */
 void Tline(int n, int mode)
 {
-char ts[stlen];
+char ts[strbuflen];
 if(mode==whiteInk)
    {
    XFillRectangle(X11_display,comWindow,comGc
@@ -299,7 +299,7 @@ double t,ay0,ay1,ay2,ay3,ax0,ax1,ax2,ax3,xt,yt,tt,s,c,dy1,dy2,ox2,oy2;
 struct kpt p0,p1,p2,p3;
 double x1,y1,x2,y2,x0,y0,x3,y3,xa,ya,xb,yb;
 int i,knot;
-char sc[3],tc[20];
+char sc[3],tc[strbuflen];
 
 if(p->wstruct==onCross)
    knot = PATH[INTER[p->node].toPoint[p->level]].knot;

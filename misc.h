@@ -130,7 +130,7 @@ extern int Csign(struct point *PATH, struct cross *INTER, int n);
 extern void Kmark(struct point *PATH, struct ktag *KNOTL, int k);
 extern void fix_comp(struct point *PATH, struct ktag *KNOTL,
 		     int l, int m);
-extern MinPoints(struct point *PATH, int p);
+extern void MinPoints(struct point *PATH, int p);
 extern void userId();
 extern int pcross(struct cross c);
 extern int ppoint(struct point p);

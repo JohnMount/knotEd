@@ -32,8 +32,6 @@
 #include "misc.h"
 #include "main.h"
 #include <math.h>
-/* for some reason my goddamn workstation can't find the M_PI def at CMU*/
-#define M_PI    3.14159265358979323846
 
 
 /*     some variables    */
@@ -1774,7 +1772,7 @@ void fix_comp(struct point *PATH, struct ktag *KNOTL,
 
 
 /* insert colinear control points if we have too few points on link */
-MinPoints(struct point *PATH, int p)
+void MinPoints(struct point *PATH, int p)
 {
   int i;
   /* insure 4 points */
